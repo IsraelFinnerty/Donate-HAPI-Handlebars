@@ -24,6 +24,17 @@ const Accounts = {
         }
     },
 
+
+    settings: {
+        handler: function(request, h) {
+            const user = request.payload;
+            this.users[user.email] = user;
+            console.log(user);
+            request.cookieAuth.set({ id: user.email });
+            return h.redirect('/home');
+        }
+    },
+
     showLogin: {
         auth: false,
         handler: function(request, h) {
@@ -40,6 +51,12 @@ const Accounts = {
                 return h.redirect('/home');
             }
             return h.redirect('/');
+        }
+    },
+
+    showSettings: {
+        handler: function(request, h) {
+            return h.view('settings', { title: 'Settings', user:this.users[request.auth.credentials.id]});
         }
     },
 

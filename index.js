@@ -1,6 +1,8 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
+require('dotenv').config();
+
 
 
 const server = Hapi.server({
@@ -35,7 +37,7 @@ async function init() {
     server.auth.strategy('session', 'cookie', {
         cookie: {
             name: 'donation',
-            password: 'password-should-be-32-characters',
+            password:  process.env.password,
             isSecure: false
         },
         redirectTo: '/',
