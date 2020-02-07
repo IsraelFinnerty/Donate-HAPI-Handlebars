@@ -1,7 +1,21 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
-require('dotenv').config();
+
+try {
+
+
+    const result = require('dotenv').config();
+
+
+    if (result.error) {
+        throw result.error
+    }
+}
+catch {
+    console.log('Problem loading dotenv file')
+}
+
 
 
 
@@ -10,10 +24,7 @@ const server = Hapi.server({
     host: 'localhost'
 });
 
-server.bind({
-    users: [],
-    donations: [],
-});
+require('./app/models/db');
 
 async function init() {
     await server.register(require('@hapi/inert'));
