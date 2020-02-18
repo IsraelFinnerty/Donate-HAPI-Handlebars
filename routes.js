@@ -2,6 +2,7 @@
 
 const Accounts = require('./app/controllers/accounts');
 const Donations = require('./app/controllers/donations');
+const Venues = require('./app/controllers/venues');
 
 module.exports = [
   { method: 'GET', path: '/', config: Accounts.index },
@@ -12,9 +13,15 @@ module.exports = [
   { method: 'POST', path: '/signup', config: Accounts.signup },
   { method: 'POST', path: '/settings', config: Accounts.settings },
   { method: 'POST', path: '/login', config: Accounts.login },
+  { method: 'POST', path: '/addvenue', config: Venues.addVenue },
 
   { method: 'GET', path: '/home', config: Donations.home },
-  { method: 'GET', path: '/report', config: Donations.report },
+  { method: 'GET', path: '/report', config: Venues.report },
+  { method: 'GET', path: '/venues', config: Venues.report },
+  { method: 'GET', path: '/venue/{id}', config: Venues.showVenue },
+  { method: 'GET', path: '/venue/delete/{id}', config: Venues.deleteVenue },
+  { method: 'GET', path: '/venue/update/{id}', config: Venues.updateVenue },
+  { method: 'POST', path: '/venue/update/{id}', config: Venues.applyUpdates },
   { method: 'POST', path: '/donate', config: Donations.donate },
 
   {

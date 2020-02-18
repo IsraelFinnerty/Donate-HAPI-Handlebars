@@ -1,0 +1,49 @@
+<section class="ui raised segment">
+    <div class="ui grid">
+        <div class="ui ten wide column">
+            <div class="ui stacked fluid form segment">
+                {{> error}}
+                <form action="/addvenue" method="POST">
+                    <h3 class="ui header">Add Venue</h3>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Name</label>
+                            <input  type="text" name="name">
+                        </div>
+                        <div class="field">
+                            <label>Location</label>
+                            <input type="text" name="location">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Category</label>
+                        <input type="text" name="category">
+                    </div>
+                    <div class="field">
+                        <label>Website</label>
+                        <input type="text" name="website">
+                    </div>
+                    <div class="two fields">
+                    <div class="field">
+                        <label>Latitude</label>
+                        <input type="number" name="lat">
+                    </div>
+                    <div class="field">
+                        <label>Longitude</label>
+                        <input type="number" name="long">
+                    </div>
+                </div>
+                    <div class="field">
+                        <label>Description</label>
+                        <textarea name="description"></textarea>
+                    </div>
+                    <button class="ui blue submit button">Add Venue</button>
+                </form>
+
+            </div>
+        </div>
+        <aside class="ui five wide column">
+            <img src="images/poimagnify.jpg" class="ui medium image">
+        </aside>
+    </div>
+</section>

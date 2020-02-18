@@ -1,6 +1,7 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
+const cloudinary = require('cloudinary').v2;
 
 try {
 
