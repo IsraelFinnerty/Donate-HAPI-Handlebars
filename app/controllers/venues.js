@@ -14,10 +14,11 @@ const Venues = {
     report: {
         handler: async function(request, h) {
             const venues = await Venue.find().lean();
-            return h.view('report', {
+
+                return h.view('report', {
                 title: 'Venues',
-                venues: venues
-            });
+                venues: venues,
+                });
         }
     },
 
@@ -49,8 +50,9 @@ const Venues = {
         handler: async function(request, h) {
             const id = request.params.id;
             try {
-                const venue = await Venue.findById(id).lean();
-                return h.view('venue',
+               const venue = await Venue.findByUID(id).lean();
+               console.log(venue);
+                 return h.view('venue',
                 {
                     title: 'Venues',
                     venue: venue
