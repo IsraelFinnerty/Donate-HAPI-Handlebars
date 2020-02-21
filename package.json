@@ -1,6 +1,6 @@
 {
   "name": "poi-assignment",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "an application for POI's",
   "main": "index.js",
   "scripts": {
