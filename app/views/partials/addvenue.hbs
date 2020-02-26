@@ -16,9 +16,21 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label>Category</label>
-                        <input type="text" name="category">
+                    <label>Category</label>
+                    <div class="ui selection dropdown">
+
+                        <input type="hidden" name="category">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Choose a Category</div>
+                        <div class="menu">
+                            {{#each venues}}
+                            <div class="item" data-value="{{category}}">{{category}}</div>
+                            {{/each}}
+                        </div>
                     </div>
+                    </div>
+                    <a href="/category"><div class="ui blue submit button">New Category</div></a>
+                    <br><br>
                     <div class="field">
                         <label>Website</label>
                         <input type="text" name="website">
@@ -37,8 +49,45 @@
                         <label>Description</label>
                         <textarea name="description"></textarea>
                     </div>
+
+                    <button id="upload_widget" class="cloudinary-button" onclick="return false">Upload files</button>
+
+                    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+
+                    <script type="text/javascript">
+                        var imageUrl;
+
+                        var myWidget = cloudinary.createUploadWidget({
+                                    cloudName: 'izzofinno',
+                                    uploadPreset: 'venues'}, (error, result) => {
+                                    imageUrl = result.info.secure_url;
+                                    console.log(imageUrl);
+                                    if (!error && result && result.event === "success") {
+                                        console.log('Done! Here is the image info: ', result.info);
+
+                                    }
+                                }
+                        )
+
+                        document.getElementById("upload_widget").addEventListener("click", function(){
+                            myWidget.open();
+
+                        }, false);
+
+
+
+                    </script>
+                    <input id="image" type="hidden" value="" name="imageMain">
+                    <script>
+                        document.getElementById("image").value = imageUrl;
+                    </script>
+
+
                     <button class="ui blue submit button">Add Venue</button>
+
                 </form>
+
+
 
             </div>
         </div>

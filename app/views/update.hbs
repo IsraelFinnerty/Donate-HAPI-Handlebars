@@ -4,47 +4,54 @@
     <div class="ui grid">
         <div class="ui ten wide column">
             <div class="ui stacked fluid form segment">
-                <form action="/venue/update/{{venue._id}}" method="POST">
+                {{#each venue}}
+                <form action="/venue/update/{{pois.0._id}}" method="POST">
                     <h3 class="ui header">Edit Venue</h3>
                     <div class="two fields">
                         <div class="field">
                             <label>Name</label>
-                            <input value="{{venue.name}}" type="text" name="name">
+                            <input value="{{pois.0.name}}" type="text" name="name">
                         </div>
                         <div class="field">
                             <label>Location</label>
-                            <input value="{{venue.location}}" type="text" name="location">
+                            <input value="{{pois.0.location}}" type="text" name="location">
                         </div>
                     </div>
-                    <div class="field">
-                        <label>Category</label>
-                        <input value="{{venue.category}}" type="text" name="category">
-                    </div>
-                    <div class="field">
+                        <div class="field">
                         <label>Website</label>
-                        <input value="{{venue.website}}" type="text" name="website">
+                        <input value="{{pois.0.website}}" type="text" name="website">
                     </div>
                     <div class="two fields">
                         <div class="field">
                             <label>Latitude</label>
-                            <input value="{{venue.geo.lat}}" type="number" name="lat">
+                            <input value="{{pois.0.geo.lat}}" type="number" name="lat">
                         </div>
                         <div class="field">
                             <label>Longitude</label>
-                            <input value="{{venue.geo.long}}" type="number" name="long">
+                            <input value="{{pois.0.geo.long}}" type="number" name="long">
                         </div>
                     </div>
                     <div class="field">
                         <label>Description</label>
-                        <textarea value="{{venue.description}}" name="description"></textarea>
+                        <textarea value="{{pois.0.description}}" name="description"></textarea>
                     </div>
                     <button class="ui blue submit button">Update</button>
                 </form>
-                {{> error}}
+
             </div>
         </div>
         <aside class="ui five wide column">
-            <img src="images/poimagnify.jpg" class="ui medium image">
+            <img src="{{pois.0.imageMain}}" class="ui medium image">
+            <a href="/venue/update/{{pois.0._id}}">Edit Entry</a>
+            <a href="/update/deleteImage/{{pois.0.imageMain}}" onclick="return confirm('Are you sure you want to delete this picture?');"><i class="ui trash icon"></i> Delete</a>
+            <div class="ui small images">
+                <img src="{{pois.0.image1}}">
+                <img src="{{pois.0.image2}}">
+                <img src="{{pois.0.image3}}">
+
+            </div>
         </aside>
     </div>
+                {{/each}}
+        {{> error}}
 </section>
