@@ -1,0 +1,30 @@
+{{> mainmenu _id="venue"}}
+
+<section class="ui raised segment">
+    <div class="ui grid">
+
+        <article class="eight wide column">
+            <header class="ui  header">Current Categories</header>
+            {{#each venues}}
+                <h5 class="ui header">{{category}}</h5>
+
+            {{/each}}
+
+        </article>
+        <aside class="six wide column">
+            <div class="ui stacked fluid form segment">
+                <form action="/category" method="POST">
+                    <div class="field">
+                        <label>New Category</label>
+                        <input  type="text" name="category">
+                    </div>
+
+                    <button class="ui blue submit button">Add Category</button>
+                </form>
+
+            </div>
+            <a href="/addvenue"><div class="ui blue submit button">Add New Venue</div></a>
+        </aside>
+
+    </div>
+</section>

@@ -5,19 +5,53 @@ const User = require('../models/user');
 const Boom = require('@hapi/boom');
 
 const Venues = {
-    home: {
-        handler: function(request, h) {
-            return h.view('home', { title: 'Make a Donation' });
+    addVenueForm: {
+        handler: async function(request, h) {
+            const venues = await Venue.find().lean();
+            return h.view('home', {
+                title: 'Add a venue',
+                venues: venues
+            });
+        }
+    },
+
+    category: {
+        handler: async function(request, h) {
+            const venues = await Venue.find().lean();
+            return h.view('category', {
+                title: 'Add a category',
+                venues: venues
+            });
+        }
+    },
+
+    addCategory: {
+        handler: async function(request, h) {
+            try {
+                const venues = await Venue.find().lean();
+                const payload = request.payload;
+                const newCategory = new Venue({
+                    category: payload.category
+                })
+                await newCategory.save();
+                return h.redirect('/category', {
+                    title: 'Add a category',
+                    venues: venues
+                });
+            }
+            catch (err) {
+                    return h.view('category', { errors: [{ message: err.message }] });
+                }
         }
     },
 
     report: {
         handler: async function(request, h) {
             const venues = await Venue.find().lean();
-            return h.view('report', {
+                 return h.view('report', {
                 title: 'Venues',
                 venues: venues
-            });
+                });
         }
     },
 
@@ -27,16 +61,25 @@ const Venues = {
             try {
                 const newVenue = new Venue({
                     category: payload.category,
-                    name: payload.name,
-                    location: payload.location,
-                    geo: {
-                        lat: payload.lat,
-                        long: payload.long
-                    },
-                    website: payload.website,
-                    description: payload.description
+                    pois: [{
+                        name: payload.name,
+                        location: payload.location,
+                        geo: {
+                            lat: payload.lat,
+                            long: payload.long
+                        },
+                        website: payload.website,
+                        imageMain: payload.imageMain,
+                        image1: payload.image1,
+                        image2: payload.image2,
+                        image3: payload.image3,
+                        description: payload.description
+                    }]
                 });
-                await newVenue.save();
+                const venue = await Venue.addVenue(newVenue);
+                console.log(venue);
+                venue.pois.push(newVenue.pois[0]);
+                venue.save();
                 return h.redirect('/venues');
             }
             catch (err) {
@@ -45,11 +88,12 @@ const Venues = {
         }
     },
 
+
     showVenue: {
         handler: async function(request, h) {
             const id = request.params.id;
             try {
-                const venue = await Venue.findById(id).lean();
+               const venue = await Venue.findByUID(id).lean();
                 return h.view('venue',
                 {
                     title: 'Venues',
@@ -68,11 +112,11 @@ const Venues = {
         handler: async function(request, h) {
             const id = request.params.id;
             try {
-                await Venue.findByIdAndDelete(id);
+                await Venue.deleteVenue(id);
                 return  h.redirect('/venues');
             }
             catch (err) {
-                return h.view('venue', { errors: [{ message: err.message }] });
+                return h.redirect('/venues', { errors: [{ message: err.message }] });
             }
         }
 
@@ -82,7 +126,7 @@ const Venues = {
         handler: async function(request, h) {
             const id = request.params.id;
             try {
-                const venue = await Venue.findById(id).lean();
+                const venue = await Venue.findByUID(id).lean();
                 return h.view('update',
                     {
                         title: 'Venues',
@@ -101,17 +145,22 @@ const Venues = {
         handler: async function(request, h) {
             const id = request.params.id;
             try {
-                 const venue = await Venue.findById(id);
-                 const userEdit = request.payload;
-                 venue.name = userEdit.name;
-                 venue.category = userEdit.category;
-                 venue.location = userEdit.location;
-                 venue.desctiption = userEdit.description;
-                 venue.website = userEdit.website;
-                 venue.geo.lat = userEdit.lat;
-                 venue.geo.long = userEdit.long;
-                 await venue.save();
-                 return h.redirect('/venue/update/' + venue._id);
+                const venue = await Venue.findOneByUID(id);
+                //console.log(venue.pois[0]);
+                const userEdit = request.payload;
+               /* venue.update({"venue.pois[0]._id" : id}, {$set: {
+                        "venue.pois[0].name" : userEdit.name,
+                        "venue.pois[0].category": "userEdit.category",
+                        "pois[0].location": "userEdit.location",
+                        "pois[0].description": "userEdit.description",
+                        "pois[0].website": "userEdit.website",
+                        "pois[0].geo.lat": "userEdit.lat",
+                        "pois[0].geo.long": "userEdit.long"
+                    }
+            });
+                console.log(venue.pois[0].name);*/
+                Venue.updateVenue(venue, userEdit);
+                return h.redirect('/venue/update/' + venue.pois[0]._id);
             }
             catch (err) {
                 return h.view('update', { errors: [{ message: err.message }] });

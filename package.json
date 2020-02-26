@@ -1,10 +1,11 @@
 {
-  "name": "POI Assignment",
-  "version": "1.0.0",
+  "name": "poi-assignment",
+  "version": "1.3.1",
   "description": "an application for POI's",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "@hapi/cookie": "^11.0.0",
     "@hapi/hapi": "^19.0.5",
     "@hapi/inert": "^6.0.1",
+    "@hapi/joi": "^17.1.0",
     "@hapi/vision": "^6.0.0",
     "cloudinary": "^1.19.0",
     "dotenv": "^8.2.0",

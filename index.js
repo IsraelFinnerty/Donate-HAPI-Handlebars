@@ -21,8 +21,7 @@ catch {
 
 
 const server = Hapi.server({
-    port: 3000,
-    host: 'localhost'
+    port: process.env.PORT || 3000,
 });
 
 require('./app/models/db');
@@ -31,6 +30,8 @@ async function init() {
     await server.register(require('@hapi/inert'));
     await server.register(require('@hapi/vision'));
     await server.register(require('@hapi/cookie'));
+    await server.validator(require('@hapi/joi'));
+
 
     server.views({
         engines: {

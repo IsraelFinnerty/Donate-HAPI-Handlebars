@@ -13,15 +13,25 @@ module.exports = [
   { method: 'POST', path: '/settings', config: Accounts.settings },
   { method: 'POST', path: '/login', config: Accounts.login },
   { method: 'POST', path: '/addvenue', config: Venues.addVenue },
+  { method: 'GET', path: '/addvenue', config: Venues.addVenueForm },
 
+<<<<<<< HEAD
   { method: 'GET', path: '/home', config: Venues.home },
+=======
+  { method: 'GET', path: '/home', config: Venues.report },
+>>>>>>> release/2.0
   { method: 'GET', path: '/report', config: Venues.report },
   { method: 'GET', path: '/venues', config: Venues.report },
   { method: 'GET', path: '/venue/{id}', config: Venues.showVenue },
   { method: 'GET', path: '/venue/delete/{id}', config: Venues.deleteVenue },
   { method: 'GET', path: '/venue/update/{id}', config: Venues.updateVenue },
   { method: 'POST', path: '/venue/update/{id}', config: Venues.applyUpdates },
+<<<<<<< HEAD
 
+=======
+  { method: 'GET', path: '/category', config: Venues.category },
+  { method: 'POST', path: '/category', config: Venues.addCategory },
+>>>>>>> release/2.0
 
   {
     method: 'GET',

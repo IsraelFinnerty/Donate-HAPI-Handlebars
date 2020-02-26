@@ -1,6 +1,5 @@
 <section class="ui raised segment">
     <div class="ui grid">
-
         <article class="eight wide column">
             <table class="ui celled table segment">
                 <thead>
@@ -9,28 +8,48 @@
                     <th>Location</th>
                     <th>Category</th>
                     <th>Website</th>
-                    <th>Geo-Location</th>
+                    <th>Geo-Location Lat/Long</th>
                 </tr>
                 </thead>
                 <tbody>
+    {{#each venue}}
+
 
                     <tr>
-                        <td> {{venue.name}}</td>
-                        <td> {{venue.location}} </td>
-                        <td> {{venue.category}} </td>
-                        <td> <a href="http://{{venue.website}}">{{venue.website}}</a> </td>
-                        <td> {{venue.geo.lat}} , {{venue.geo.long}} </td>
+                        <td> {{pois.0.name}}</td>
+                        <td> {{pois.0.location}} </td>
+                        <td> {{pois.0.category}} </td>
+
+                        <td> <a href="http://{{pois.0.website}}">{{pois.0.website}}</a> </td>
+                        <td> {{pois.0.geo.lat}} , {{pois.0.geo.long}} </td>
                     </tr>
+
 
                 </tbody>
             </table>
+
            <h4>Description</h4>
+<<<<<<< HEAD
             <p>{{venue.description}}</p>
             <a href="/venue/update/{{venue._id}}"><i class="edit outline icon"></i>Edit Entry</a><br><br>
             <a href="/venue/delete/{{venue._id}}" onclick="return confirm('Are you sure you want to delete this item?');"><i class="ui trash icon"></i> Delete</a>
+=======
+            <p>{{pois.0.description}}</p>
+            <a href="/venue/update/{{pois.0._id}}">Edit Entry</a>
+            <a href="/venue/delete/{{pois.0._id}}" onclick="return confirm('Are you sure you want to delete this item?');"><i class="ui trash icon"></i> Delete</a>
+>>>>>>> release/2.0
         </article>
-        <aside class="six wide column">
-            <img src="images/iro.png" class="ui medium image">
+
+        <aside class="eight wide column">
+            <img src="{{pois.0.imageMain}}" class="ui medium image">
+            <div class="ui small images">
+                <img src="{{pois.0.image1}}">
+                <img src="{{pois.0.image2}}">
+                <img src="{{pois.0.image3}}">
+
+            </div>
         </aside>
+    {{/each}}
     </div>
+    {{>error}}
 </section>
