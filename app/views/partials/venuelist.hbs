@@ -10,11 +10,7 @@
                 <tr>
                     <th>Venue</th>
                     <th>Location</th>
-<<<<<<< HEAD
-                    <th>Category</th>
-                    <th>Edit</th>
-=======
->>>>>>> release/2.0
+
                     <th>Delete</th>
                 </tr>
                 </thead>
@@ -26,11 +22,7 @@
                     <tr>
                         <td> <a href="/venue/{{_id}}">{{name}}</a></td>
                         <td> {{location}} </td>
-<<<<<<< HEAD
-                        <td> {{category}} </td>
-                        <td> <a href="/venue/update/{{_id}}"><i class="edit outline icon"></i></a></td>
-=======
->>>>>>> release/2.0
+
                         <td><a href="/venue/delete/{{_id}}" onclick="return confirm('Are you sure you want to delete this item?');"><i class="ui trash icon"></i></a></td>
                     </tr>
                 {{/each}}
